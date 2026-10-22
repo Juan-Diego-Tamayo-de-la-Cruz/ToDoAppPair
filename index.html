@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ToDo Refactor Lab</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header>
+      <p class="eyebrow">Ingeniería de Software · Refactor + Unit Testing</p>
+      <h1>ToDo Refactor Lab</h1>
+      <p>Una aplicación funcional que iremos haciendo más mantenible y comprobable.</p>
+    </header>
+
+    <section class="panel">
+      <form id="task-form">
+        <label for="task-input">Nueva tarea</label>
+        <div class="row">
+          <input id="task-input" autocomplete="off" placeholder="Ej. Diseñar pruebas" />
+          <button type="submit">Agregar</button>
+        </div>
+        <p id="message" class="message" aria-live="polite"></p>
+      </form>
+
+      <div class="toolbar">
+        <button data-filter="todas" class="filter active">Todas</button>
+        <button data-filter="pendientes" class="filter">Pendientes</button>
+        <button data-filter="terminadas" class="filter">Terminadas</button>
+      </div>
+
+      <ul id="task-list" class="tasks"></ul>
+      <p id="summary" class="summary"></p>
+    </section>
+  </main>
+
+  <!-- Misión 0: inicia analizando legacy.js. Después integra taskService.js desde app.js. -->
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>
