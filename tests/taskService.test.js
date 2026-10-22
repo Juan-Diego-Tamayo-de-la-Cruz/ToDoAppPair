@@ -32,6 +32,33 @@ describe("crearTarea", () => {
 });
 
 // MISIÓN 3: agrega al menos dos pruebas para agregarTarea().
+describe("agregarTarea", () => {
+  it("agrega una nueva tarea a la colección", () => {
+    // Arrange
+    const tareasIniciales = [{ id: 1, titulo: "Tarea 1", completada: false }];
+    const nuevaTarea = { id: 2, titulo: "Tarea 2", completada: false };
+
+    // Act
+    const resultado = agregarTarea(tareasIniciales, nuevaTarea);
+
+    // Assert
+    expect(resultado).toContainEqual(nuevaTarea);
+  });
+
+  it("devuelve una colección con un elemento más sin mutar la original", () => {
+    // Arrange
+    const tareasIniciales = [{ id: 1, titulo: "Tarea 1", completada: false }];
+    const nuevaTarea = { id: 2, titulo: "Tarea 2", completada: false };
+
+    // Act
+    const resultado = agregarTarea(tareasIniciales, nuevaTarea);
+
+    // Assert
+    expect(resultado.length).toBe(tareasIniciales.length + 1);
+    expect(resultado).not.toBe(tareasIniciales); // Verifica que es un arreglo nuevo
+  });
+});
+
 // MISIÓN 4: prueba id existente e inexistente para buscarTarea().
 // MISIÓN 5: prueba colección mixta, sin coincidencias y vacía.
 // MISIÓN 6: prueba cambio correcto, otra tarea intacta e id inexistente.
