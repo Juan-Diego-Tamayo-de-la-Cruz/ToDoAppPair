@@ -56,7 +56,7 @@ function render() {
 
   tareasAMostrar.forEach((tarea) => {
     const li = document.createElement("li");
-    li.className = `task ${tarea.completada ? "completed" : ""}`;
+    li.className = tarea.completada ? "task done" : "task";
     li.innerHTML = `
       <span class="title" data-toggle="${tarea.id}">${tarea.titulo}</span>
       <span class="task-actions">
