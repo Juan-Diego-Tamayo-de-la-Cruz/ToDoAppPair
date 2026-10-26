@@ -34,11 +34,6 @@ export function obtenerTerminadas(tareas) {
   return tareas.filter(tarea => tarea.completada);
 }
 
-export function obtenerTerminadas(tareas) {
-  // TODO: usar filter().
-  throw new Error("Misión 5 pendiente: implementar obtenerTerminadas()");
-}
-
 // MISIÓN 6
 export function cambiarEstado(tareas, id) {
   // map() conserva el tamaño; spread crea un objeto nuevo sólo para la tarea afectada
