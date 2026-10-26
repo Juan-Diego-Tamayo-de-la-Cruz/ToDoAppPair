@@ -96,6 +96,42 @@ describe("buscarTarea", () => {
 });
 
 // MISIÓN 5: prueba colección mixta, sin coincidencias y vacía.
+describe("obtenerPendientes y obtenerTerminadas", () => {
+  const tareasMixtas = [
+    { id: 1, titulo: "Revisar requisitos", completada: false },
+    { id: 2, titulo: "Diseñar pruebas", completada: true },
+    { id: 3, titulo: "Refactorizar código", completada: false }
+  ];
+  
+  const tareasTodasPendientes = [
+    { id: 4, titulo: "Tarea pendiente", completada: false }
+  ];
+  
+  const tareasVacias = [];
+
+  it("filtra correctamente una colección mixta", () => {
+    const pendientes = obtenerPendientes(tareasMixtas);
+    const terminadas = obtenerTerminadas(tareasMixtas);
+    
+    expect(pendientes.length).toBe(2);
+    expect(pendientes[0].id).toBe(1);
+    expect(pendientes[1].id).toBe(3);
+    
+    expect(terminadas.length).toBe(1);
+    expect(terminadas[0].id).toBe(2);
+  });
+
+  it("devuelve un arreglo vacío si no hay coincidencias", () => {
+    // Si todas están pendientes, buscar terminadas debe dar []
+    const terminadas = obtenerTerminadas(tareasTodasPendientes);
+    expect(terminadas).toEqual([]);
+  });
+
+  it("devuelve un arreglo vacío para una colección vacía", () => {
+    expect(obtenerPendientes(tareasVacias)).toEqual([]);
+    expect(obtenerTerminadas(tareasVacias)).toEqual([]);
+  });
+});
 // MISIÓN 6: prueba cambio correcto, otra tarea intacta e id inexistente.
 describe("cambiarEstado", () => {
   it("marca como completada una tarea pendiente", () => {
