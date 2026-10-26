@@ -50,24 +50,37 @@ function obtenerTareasFiltradas() {
 }
 
 // Renderizado (Adaptador visual)
-function render() {
-  list.innerHTML = "";
-  const tareasAMostrar = obtenerTareasFiltradas();
+// Cada nodo se crea con createElement y el título se asigna con textContent:
+// el texto del usuario nunca se interpreta como HTML.
+function crearBoton(texto, accion, id) {
+  const boton = document.createElement("button");
+  boton.textContent = texto;
+  boton.dataset[accion] = id;
+  return boton;
+}
 
-  tareasAMostrar.forEach((tarea) => {
-    const li = document.createElement("li");
-    li.className = tarea.completada ? "task done" : "task";
-    li.innerHTML = `
-      <span class="title" data-toggle="${tarea.id}">${tarea.titulo}</span>
-      <span class="task-actions">
-        <button data-toggle="${tarea.id}">
-          ${tarea.completada ? "Desmarcar" : "Completar"}
-        </button>
-        <button data-delete="${tarea.id}">Eliminar</button>
-      </span>
-    `;
-    list.appendChild(li);
-  });
+function crearItem(tarea) {
+  const li = document.createElement("li");
+  li.className = tarea.completada ? "task done" : "task";
+
+  const titulo = document.createElement("span");
+  titulo.className = "title";
+  titulo.dataset.toggle = tarea.id;
+  titulo.textContent = tarea.titulo;
+
+  const acciones = document.createElement("span");
+  acciones.className = "task-actions";
+  acciones.append(
+    crearBoton(tarea.completada ? "Desmarcar" : "Completar", "toggle", tarea.id),
+    crearBoton("Eliminar", "delete", tarea.id)
+  );
+
+  li.append(titulo, acciones);
+  return li;
+}
+
+function render() {
+  list.replaceChildren(...obtenerTareasFiltradas().map(crearItem));
 
   const resumen = obtenerResumen(tareas);
   summary.textContent = `Total: ${resumen.total} | Pendientes: ${resumen.pendientes} | Terminadas: ${resumen.terminadas}`;
