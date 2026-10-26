@@ -55,3 +55,11 @@ export function obtenerResumen(tareas) {
   const terminadas = tareas.filter(tarea => tarea.completada).length;
   return { total: tareas.length, pendientes: tareas.length - terminadas, terminadas };
 }
+
+// MISIÓN 11:
+export function existeTareaConTitulo(tareas, titulo) {
+  const tituloNormalizado = titulo.trim().toLowerCase();
+  return tareas.some(
+    tarea => tarea.titulo.trim().toLowerCase() === tituloNormalizado
+  );
+}

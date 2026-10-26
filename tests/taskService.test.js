@@ -7,7 +7,8 @@ import {
   obtenerTerminadas,
   cambiarEstado,
   eliminarTarea,
-  obtenerResumen
+  obtenerResumen,
+  existeTareaConTitulo
 } from "../src/taskService.js";
 
 /*
@@ -232,8 +233,29 @@ describe("obtenerResumen", () => {
 });
 
 
+// MISIÓN 11: Evitar títulos duplicados
+describe("existeTareaConTitulo", () => {
+  const tareasPrueba = [
+    { id: 1, titulo: "Diseñar pruebas", completada: false },
+    { id: 2, titulo: "Refactorizar código", completada: false }
+  ];
+
+  it("detecta si existe una tarea con el mismo título exacto", () => {
+    expect(existeTareaConTitulo(tareasPrueba, "Diseñar pruebas")).toBe(true);
+  });
+
+  it("detecta duplicados normalizando mayúsculas, minúsculas y espacios", () => {
+    expect(existeTareaConTitulo(tareasPrueba, "  diseñar PRUEBAS  ")).toBe(true);
+  });
+
+  it("devuelve false si el título no existe en la colección", () => {
+    expect(existeTareaConTitulo(tareasPrueba, "Nueva Tarea Única")).toBe(false);
+  });
+});
+
 // Los imports anteriores quedan preparados para que construyas la suite de forma incremental.
 void agregarTarea;
 void obtenerPendientes;
 void obtenerTerminadas;
 void eliminarTarea;
+

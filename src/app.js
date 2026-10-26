@@ -22,7 +22,8 @@ import {
   cambiarEstado,
   obtenerPendientes,
   obtenerTerminadas,
-  obtenerResumen
+  obtenerResumen,
+  existeTareaConTitulo
 } from "./taskService.js";
 
 // Referencias al DOM
@@ -76,8 +77,15 @@ function render() {
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const titulo = input.value.trim();
+  
   if (!titulo) {
     message.textContent = "Escribe un título antes de agregar.";
+    return;
+  }
+
+  // Validación Misión 11: Evitar títulos duplicados
+  if (existeTareaConTitulo(tareas, titulo)) {
+    message.textContent = "Ya existe una tarea con este título.";
     return;
   }
 
