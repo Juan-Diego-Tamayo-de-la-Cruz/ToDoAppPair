@@ -138,10 +138,38 @@ describe("cambiarEstado", () => {
 
 // MISIÓN 7: prueba eliminar existente, inexistente y colección vacía.
 // MISIÓN 8: prueba obtenerResumen(), incluyendo colección vacía.
+describe("obtenerResumen", () => {
+  it("cuenta total, pendientes y terminadas", () => {
+    // Arrange: 5 tareas, 2 terminadas
+    const tareas = [
+      { id: 1, titulo: "A", completada: true },
+      { id: 2, titulo: "B", completada: false },
+      { id: 3, titulo: "C", completada: true },
+      { id: 4, titulo: "D", completada: false },
+      { id: 5, titulo: "E", completada: false }
+    ];
+
+    // Act
+    const resumen = obtenerResumen(tareas);
+
+    // Assert
+    expect(resumen).toEqual({ total: 5, pendientes: 3, terminadas: 2 });
+  });
+
+  it("con una colección vacía devuelve ceros", () => {
+    expect(obtenerResumen([])).toEqual({ total: 0, pendientes: 0, terminadas: 0 });
+  });
+
+  it("cuando todas están terminadas no hay pendientes", () => {
+    const tareas = cambiarEstado(cambiarEstado(coleccionMixta(), 2), 3);
+
+    expect(obtenerResumen(tareas)).toEqual({ total: 3, pendientes: 0, terminadas: 3 });
+  });
+});
+
 
 // Los imports anteriores quedan preparados para que construyas la suite de forma incremental.
 void agregarTarea;
 void obtenerPendientes;
 void obtenerTerminadas;
 void eliminarTarea;
-void obtenerResumen;
