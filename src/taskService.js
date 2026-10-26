@@ -65,6 +65,10 @@ export function existeTareaConTitulo(tareas, titulo) {
 }
 
 // MISIÓN 10: reglas movidas desde app.js
+export function siguienteId(tareas) {
+  return Math.max(0, ...tareas.map(tarea => tarea.id)) + 1;
+}
+
 export function filtrarTareas(tareas, filtro) {
   if (filtro === "pendientes") return obtenerPendientes(tareas);
   if (filtro === "terminadas") return obtenerTerminadas(tareas);

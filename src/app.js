@@ -22,7 +22,8 @@ import {
   cambiarEstado,
   filtrarTareas,
   obtenerResumen,
-  validarTitulo
+  validarTitulo,
+  siguienteId
 } from "./taskService.js";
 
 // Referencias al DOM
@@ -95,7 +96,7 @@ form.addEventListener("submit", (event) => {
     return;
   }
 
-  const nuevaTarea = crearTarea(Date.now(), titulo);
+  const nuevaTarea = crearTarea(siguienteId(tareas), titulo);
   tareas = agregarTarea(tareas, nuevaTarea);
 
   input.value = "";
