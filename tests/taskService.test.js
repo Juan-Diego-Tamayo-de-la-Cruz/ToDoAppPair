@@ -17,6 +17,14 @@ import {
  * una vez. Para cada comportamiento sigue RED → GREEN → REFACTOR.
  */
 
+// Fábrica de datos: cada prueba recibe su propia colección, así ninguna
+// prueba depende de lo que otra haya hecho con los datos.
+const coleccionMixta = () => [
+  { id: 1, titulo: "Revisar requisitos", completada: true },
+  { id: 2, titulo: "Diseñar pruebas", completada: false },
+  { id: 3, titulo: "Refactorizar código", completada: false }
+];
+
 describe("crearTarea", () => {
   it("crea una tarea pendiente con id y título", () => {
     // Arrange
@@ -60,6 +68,33 @@ describe("agregarTarea", () => {
 });
 
 // MISIÓN 4: prueba id existente e inexistente para buscarTarea().
+describe("buscarTarea", () => {
+  it("encuentra la tarea con un id existente", () => {
+    // Arrange
+    const tareas = coleccionMixta();
+
+    // Act
+    const tarea = buscarTarea(tareas, 2);
+
+    // Assert
+    expect(tarea).toEqual({ id: 2, titulo: "Diseñar pruebas", completada: false });
+  });
+
+  it("devuelve undefined si el id no existe", () => {
+    expect(buscarTarea(coleccionMixta(), 99)).toBeUndefined();
+  });
+
+  it("devuelve undefined en una colección vacía", () => {
+    expect(buscarTarea([], 1)).toBeUndefined();
+  });
+
+  it("compara el id con igualdad estricta: '2' no es 2", () => {
+    // Contrato para la interfaz: dataset siempre entrega strings,
+    // así que app.js debe convertir con Number() antes de llamar.
+    expect(buscarTarea(coleccionMixta(), "2")).toBeUndefined();
+  });
+});
+
 // MISIÓN 5: prueba colección mixta, sin coincidencias y vacía.
 // MISIÓN 6: prueba cambio correcto, otra tarea intacta e id inexistente.
 // MISIÓN 7: prueba eliminar existente, inexistente y colección vacía.
@@ -67,7 +102,6 @@ describe("agregarTarea", () => {
 
 // Los imports anteriores quedan preparados para que construyas la suite de forma incremental.
 void agregarTarea;
-void buscarTarea;
 void obtenerPendientes;
 void obtenerTerminadas;
 void cambiarEstado;
