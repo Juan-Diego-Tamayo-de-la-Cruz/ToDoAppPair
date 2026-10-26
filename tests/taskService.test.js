@@ -97,6 +97,45 @@ describe("buscarTarea", () => {
 
 // MISIÓN 5: prueba colección mixta, sin coincidencias y vacía.
 // MISIÓN 6: prueba cambio correcto, otra tarea intacta e id inexistente.
+describe("cambiarEstado", () => {
+  it("marca como completada una tarea pendiente", () => {
+    const resultado = cambiarEstado(coleccionMixta(), 2);
+
+    expect(buscarTarea(resultado, 2).completada).toBe(true);
+  });
+
+  it("devuelve a pendiente una tarea completada", () => {
+    const resultado = cambiarEstado(coleccionMixta(), 1);
+
+    expect(buscarTarea(resultado, 1).completada).toBe(false);
+  });
+
+  it("no altera las demás tareas", () => {
+    const resultado = cambiarEstado(coleccionMixta(), 2);
+
+    expect(resultado.filter(t => t.id !== 2)).toEqual(
+      coleccionMixta().filter(t => t.id !== 2)
+    );
+  });
+
+  it("no muta el array ni el objeto original", () => {
+    // Arrange
+    const tareas = coleccionMixta();
+    const original = tareas[1];
+
+    // Act
+    cambiarEstado(tareas, 2);
+
+    // Assert
+    expect(tareas).toEqual(coleccionMixta());
+    expect(original.completada).toBe(false);
+  });
+
+  it("con un id inexistente conserva el contenido", () => {
+    expect(cambiarEstado(coleccionMixta(), 99)).toEqual(coleccionMixta());
+  });
+});
+
 // MISIÓN 7: prueba eliminar existente, inexistente y colección vacía.
 // MISIÓN 8: prueba obtenerResumen(), incluyendo colección vacía.
 
@@ -104,6 +143,5 @@ describe("buscarTarea", () => {
 void agregarTarea;
 void obtenerPendientes;
 void obtenerTerminadas;
-void cambiarEstado;
 void eliminarTarea;
 void obtenerResumen;
