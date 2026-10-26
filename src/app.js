@@ -22,7 +22,7 @@ import {
   cambiarEstado,
   filtrarTareas,
   obtenerResumen,
-  existeTareaConTitulo
+  validarTitulo
 } from "./taskService.js";
 
 // Referencias al DOM
@@ -32,6 +32,12 @@ const list = document.querySelector("#task-list");
 const message = document.querySelector("#message");
 const summary = document.querySelector("#summary");
 const filters = [...document.querySelectorAll("[data-filter]")];
+
+// Textos de la interfaz para cada código de validarTitulo()
+const MENSAJES = {
+  vacio: "Escribe un título antes de agregar.",
+  duplicado: "Ya existe una tarea con este título."
+};
 
 // Estado de la aplicación
 let tareas = [
@@ -82,15 +88,10 @@ function render() {
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const titulo = input.value.trim();
-  
-  if (!titulo) {
-    message.textContent = "Escribe un título antes de agregar.";
-    return;
-  }
+  const error = validarTitulo(titulo, tareas);
 
-  // Validación Misión 11: Evitar títulos duplicados
-  if (existeTareaConTitulo(tareas, titulo)) {
-    message.textContent = "Ya existe una tarea con este título.";
+  if (error) {
+    message.textContent = MENSAJES[error];
     return;
   }
 

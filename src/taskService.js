@@ -70,3 +70,10 @@ export function filtrarTareas(tareas, filtro) {
   if (filtro === "terminadas") return obtenerTerminadas(tareas);
   return tareas;
 }
+
+// Devuelve un código de error o null. El texto del mensaje es de la interfaz.
+export function validarTitulo(titulo, tareas) {
+  if (titulo.trim() === "") return "vacio";
+  if (existeTareaConTitulo(tareas, titulo)) return "duplicado";
+  return null;
+}
