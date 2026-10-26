@@ -1,9 +1,11 @@
 /*
- * TODO REFACTOR LAB · LÓGICA DE DOMINIO
+ * DOMINIO DE TAREAS
  *
- * Completa estas funciones misión por misión. Favorece funciones que reciben
- * datos y devuelven datos, sin acceder al DOM. Ejecuta la suite después de
- * cada cambio.
+ * Funciones puras: reciben datos y devuelven datos nuevos. Ninguna modifica
+ * la colección ni los objetos recibidos, y ninguna conoce el DOM; por eso se
+ * prueban sin navegador en tests/taskService.test.js.
+ *
+ * Tarea: { id: number, titulo: string, completada: boolean }
  */
 
 // MISIÓN 2

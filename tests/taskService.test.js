@@ -15,10 +15,8 @@ import {
 } from "../src/taskService.js";
 
 /*
- * TODO REFACTOR LAB · SUITE STARTER
- *
- * Activa/crea pruebas misión por misión. No escribas todas las soluciones de
- * una vez. Para cada comportamiento sigue RED → GREEN → REFACTOR.
+ * Pruebas unitarias del dominio (taskService.js). Cada prueba protege un
+ * comportamiento observable y sigue Arrange–Act–Assert.
  */
 
 // Fábrica de datos: cada prueba recibe su propia colección, así ninguna
@@ -315,10 +313,3 @@ describe("siguienteId", () => {
     expect(siguienteId(tareas)).toBe(6);
   });
 });
-
-// Los imports anteriores quedan preparados para que construyas la suite de forma incremental.
-void agregarTarea;
-void obtenerPendientes;
-void obtenerTerminadas;
-void eliminarTarea;
-

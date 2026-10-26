@@ -1,10 +1,10 @@
 /*
- * MISIÓN 9 · ADAPTADOR DE INTERFAZ
+ * ADAPTADOR DE INTERFAZ
  *
- * Este archivo contiene una versión inicial de interfaz basada en strings para
- * que la aplicación pueda observarse desde el comienzo. Cuando llegues a la
- * Misión 9, reemplaza la lógica de datos por llamadas a taskService.js.
- * El DOM debe leer eventos, delegar reglas al servicio y renderizar resultados.
+ * evento del usuario → app.js → taskService.js → nuevo estado → render() → DOM
+ *
+ * Este archivo sólo lee eventos, delega las reglas a taskService.js y dibuja
+ * el resultado. No decide qué título es válido, qué id sigue ni qué se filtra.
  */
 
 /*
