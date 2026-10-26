@@ -7,14 +7,6 @@
  * el resultado. No decide qué título es válido, qué id sigue ni qué se filtra.
  */
 
-/*
- * MISIÓN 1 · ADAPTADOR DE INTERFAZ
-* ¿qué propiedades pertenecen realmente a una tarea y cuáles pertenecen a la interfaz?
-* Las propiedades que pertenecen a la tarea (dominio) son id, titulo y completada
-* porque definen el estado de los datos. Lo que pertenece a la interfaz es el
-* diseño visual, el HTML (<li>), los estilos CSS y los eventos de clic del navegador.
- */
-
 import {
   crearTarea,
   agregarTarea,

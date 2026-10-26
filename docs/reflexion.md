@@ -1,0 +1,7 @@
+# Reflexión de pareja
+
+**Juan Diego Tamayo de la Cruz y Andrés Herrera Oettinghaus**
+
+El cambio que más aumentó la mantenibilidad fue sacar las reglas de `app.js` y convertirlas en funciones puras dentro de `taskService.js`. Al terminar la integración, la interfaz todavía decidía qué tareas mostrar según el filtro, validaba títulos vacíos y duplicados y generaba ids con `Date.now()`. Esas reglas sólo podían comprobarse abriendo el navegador. Al moverlas a `filtrarTareas`, `validarTitulo` y `siguienteId`, cada una quedó con un nombre que expresa su intención y con pruebas que corren en milisegundos. Ahora una regla nueva sobre títulos sólo toca el dominio, sus pruebas y un mensaje; `render()` y los listeners no cambian. Identificar las tareas por id y no por índice también evitó que, con un filtro activo, se eliminara la tarea equivocada.
+
+La prueba que más confianza nos dio fue "no muta el array ni el objeto original" de `cambiarEstado`. Toda la interfaz depende de que cada acción produzca un estado nuevo sin alterar el anterior, y esa prueba lo verifica comparando contra una copia tomada antes de actuar. También aprendimos de un fallo real: en la Misión 5 quedó una función declarada dos veces y la suite completa dejó de cargar. Correr `npm test` antes de cada commit lo detectó de inmediato. Además, repetir los escenarios en el navegador encontró dos defectos que las pruebas unitarias no cubren: el estilo de tarea completada y el título interpretado como HTML.
