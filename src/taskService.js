@@ -63,3 +63,10 @@ export function existeTareaConTitulo(tareas, titulo) {
     tarea => tarea.titulo.trim().toLowerCase() === tituloNormalizado
   );
 }
+
+// MISIÓN 10: reglas movidas desde app.js
+export function filtrarTareas(tareas, filtro) {
+  if (filtro === "pendientes") return obtenerPendientes(tareas);
+  if (filtro === "terminadas") return obtenerTerminadas(tareas);
+  return tareas;
+}

@@ -20,8 +20,7 @@ import {
   agregarTarea,
   eliminarTarea,
   cambiarEstado,
-  obtenerPendientes,
-  obtenerTerminadas,
+  filtrarTareas,
   obtenerResumen,
   existeTareaConTitulo
 } from "./taskService.js";
@@ -41,13 +40,6 @@ let tareas = [
   { id: 3, titulo: "Refactorizar código", completada: false }
 ];
 let filtroActual = "todas";
-
-// Obtención de tareas según filtro activo
-function obtenerTareasFiltradas() {
-  if (filtroActual === "pendientes") return obtenerPendientes(tareas);
-  if (filtroActual === "terminadas") return obtenerTerminadas(tareas);
-  return tareas;
-}
 
 // Renderizado (Adaptador visual)
 // Cada nodo se crea con createElement y el título se asigna con textContent:
@@ -80,7 +72,7 @@ function crearItem(tarea) {
 }
 
 function render() {
-  list.replaceChildren(...obtenerTareasFiltradas().map(crearItem));
+  list.replaceChildren(...filtrarTareas(tareas, filtroActual).map(crearItem));
 
   const resumen = obtenerResumen(tareas);
   summary.textContent = `Total: ${resumen.total} | Pendientes: ${resumen.pendientes} | Terminadas: ${resumen.terminadas}`;
