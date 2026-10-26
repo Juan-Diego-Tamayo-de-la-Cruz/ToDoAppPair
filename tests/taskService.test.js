@@ -8,7 +8,8 @@ import {
   cambiarEstado,
   eliminarTarea,
   obtenerResumen,
-  existeTareaConTitulo
+  existeTareaConTitulo,
+  filtrarTareas
 } from "../src/taskService.js";
 
 /*
@@ -250,6 +251,25 @@ describe("existeTareaConTitulo", () => {
 
   it("devuelve false si el título no existe en la colección", () => {
     expect(existeTareaConTitulo(tareasPrueba, "Nueva Tarea Única")).toBe(false);
+  });
+});
+
+// MISIÓN 10: reglas que estaban dentro de app.js pasan al dominio.
+describe("filtrarTareas", () => {
+  it("'todas' devuelve la colección completa", () => {
+    expect(filtrarTareas(coleccionMixta(), "todas")).toEqual(coleccionMixta());
+  });
+
+  it("'pendientes' devuelve sólo las no completadas", () => {
+    expect(filtrarTareas(coleccionMixta(), "pendientes").map(t => t.id)).toEqual([2, 3]);
+  });
+
+  it("'terminadas' devuelve sólo las completadas", () => {
+    expect(filtrarTareas(coleccionMixta(), "terminadas").map(t => t.id)).toEqual([1]);
+  });
+
+  it("un filtro desconocido devuelve la colección completa (como hacía app.js)", () => {
+    expect(filtrarTareas(coleccionMixta(), "otro")).toEqual(coleccionMixta());
   });
 });
 
