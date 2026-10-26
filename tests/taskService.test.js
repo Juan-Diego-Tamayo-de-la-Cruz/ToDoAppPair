@@ -173,6 +173,34 @@ describe("cambiarEstado", () => {
 });
 
 // MISIÓN 7: prueba eliminar existente, inexistente y colección vacía.
+describe("eliminarTarea", () => {
+  it("elimina un id existente", () => {
+    // Arrange
+    const tareas = coleccionMixta();
+    
+    // Act
+    const resultado = eliminarTarea(tareas, 2);
+    
+    // Assert
+    expect(resultado.length).toBe(2);
+    expect(buscarTarea(resultado, 2)).toBeUndefined();
+  });
+
+  it("devuelve la colección intacta si el id es inexistente", () => {
+    // Arrange
+    const tareas = coleccionMixta();
+    
+    // Act
+    const resultado = eliminarTarea(tareas, 99);
+    
+    // Assert
+    expect(resultado).toEqual(tareas);
+  });
+
+  it("devuelve una colección vacía al intentar eliminar de una colección vacía", () => {
+    expect(eliminarTarea([], 1)).toEqual([]);
+  });
+});
 // MISIÓN 8: prueba obtenerResumen(), incluyendo colección vacía.
 describe("obtenerResumen", () => {
   it("cuenta total, pendientes y terminadas", () => {
