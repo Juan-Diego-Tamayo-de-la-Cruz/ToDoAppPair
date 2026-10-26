@@ -9,7 +9,8 @@ import {
   eliminarTarea,
   obtenerResumen,
   existeTareaConTitulo,
-  filtrarTareas
+  filtrarTareas,
+  validarTitulo
 } from "../src/taskService.js";
 
 /*
@@ -270,6 +271,24 @@ describe("filtrarTareas", () => {
 
   it("un filtro desconocido devuelve la colección completa (como hacía app.js)", () => {
     expect(filtrarTareas(coleccionMixta(), "otro")).toEqual(coleccionMixta());
+  });
+});
+
+describe("validarTitulo", () => {
+  it("un título nuevo es válido (null = sin error)", () => {
+    expect(validarTitulo("Escribir README", coleccionMixta())).toBeNull();
+  });
+
+  it("un título vacío es inválido", () => {
+    expect(validarTitulo("", coleccionMixta())).toBe("vacio");
+  });
+
+  it("un título con sólo espacios es inválido", () => {
+    expect(validarTitulo("    ", coleccionMixta())).toBe("vacio");
+  });
+
+  it("un título que ya existe es inválido (regla de la Misión 11)", () => {
+    expect(validarTitulo("  diseñar PRUEBAS ", coleccionMixta())).toBe("duplicado");
   });
 });
 
