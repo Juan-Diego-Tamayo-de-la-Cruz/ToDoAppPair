@@ -10,7 +10,8 @@ import {
   obtenerResumen,
   existeTareaConTitulo,
   filtrarTareas,
-  validarTitulo
+  validarTitulo,
+  siguienteId
 } from "../src/taskService.js";
 
 /*
@@ -289,6 +290,29 @@ describe("validarTitulo", () => {
 
   it("un título que ya existe es inválido (regla de la Misión 11)", () => {
     expect(validarTitulo("  diseñar PRUEBAS ", coleccionMixta())).toBe("duplicado");
+  });
+});
+
+describe("siguienteId", () => {
+  it("en una colección vacía empieza en 1", () => {
+    expect(siguienteId([])).toBe(1);
+  });
+
+  it("devuelve el mayor id + 1", () => {
+    expect(siguienteId(coleccionMixta())).toBe(4);
+  });
+
+  it("no repite un id existente cuando hay huecos tras eliminar", () => {
+    // Con length + 1 saldría 3, que ya existe.
+    const tareas = eliminarTarea(coleccionMixta(), 2); // ids [1, 3]
+
+    expect(siguienteId(tareas)).toBe(4);
+  });
+
+  it("no depende del orden de la colección", () => {
+    const tareas = [crearTarea(5, "A"), crearTarea(2, "B")];
+
+    expect(siguienteId(tareas)).toBe(6);
   });
 });
 
